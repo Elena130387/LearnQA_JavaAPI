@@ -1,8 +1,13 @@
 import io.restassured.RestAssured;
-import io.restassured.http.Headers;
 import io.restassured.path.json.JsonPath;
 import io.restassured.response.Response;
 import org.junit.jupiter.api.Test;
+import static org.hamcrest.Matchers.equalTo;
+import java.util.HashMap;
+import java.util.Map;
+import static java.lang.Thread.sleep;
+import static org.hamcrest.Matchers.notNullValue;
+
 
 public class RestAssuredHWTest {
     @Test
@@ -44,10 +49,47 @@ public class RestAssuredHWTest {
                     .andReturn();
             responseStatus = response.statusCode();
             URL = response.getHeader("Location");
-            if (URL != null){
+            if (URL != null) {
                 System.out.println(URL);
             }
         } while (responseStatus != 200);
+    }
+
+    @Test
+    public void testToken() throws InterruptedException {
+        Map<String, String> headersToken = new HashMap<>();
+
+        JsonPath response = RestAssured
+                .given()
+                .get("https://playground.learnqa.ru/ajax/api/longtime_job")
+                .jsonPath();
+
+        String responseToken = response.get("token");
+        int responseSeconds = response.get("seconds");
+        responseSeconds = responseSeconds * 1000;
+
+        headersToken.put("token",responseToken);
+        RestAssured
+                .given()
+                .params(headersToken)
+                .when()
+                .get("https://playground.learnqa.ru/ajax/api/longtime_job")
+                .then()
+                .assertThat()
+                .body("status", equalTo("Job is NOT ready"));
+
+        sleep(responseSeconds);
+
+        RestAssured
+                .given()
+                .params(headersToken)
+                .when()
+                .get("https://playground.learnqa.ru/ajax/api/longtime_job")
+                .then()
+                .assertThat()
+                .body("status", equalTo("Job is ready"))
+                .assertThat()
+                .body("result", notNullValue());
     }
 }
 
