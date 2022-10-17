@@ -3,6 +3,7 @@ package lib;
 import io.qameta.allure.Step;
 import io.qameta.allure.restassured.AllureRestAssured;
 import io.restassured.http.Header;
+import io.restassured.path.json.JsonPath;
 import io.restassured.response.Response;
 
 import java.util.Map;
@@ -38,12 +39,29 @@ public class ApiCoreRequests {
                 .andReturn();
     }
 
-    @Step("Make a POST-request with token only")
+    @Step("Make a GET-request without token and cookie")
+    public Response makeGetRequestWithoutTokenAndCookie(String url){
+        return given()
+                .filter(new AllureRestAssured())
+                .get(url)
+                .andReturn();
+    }
+
+    @Step("Make a POST-request")
     public Response makePostRequest(String url, Map<String, String> authData){
         return given()
                 .filter(new AllureRestAssured())
                 .body(authData)
                 .post(url)
                 .andReturn();
+    }
+
+    @Step("Make a JSON POST-request")
+    public JsonPath makePostJsonRequest(String url, Map<String, String> authData){
+        return given()
+                .filter(new AllureRestAssured())
+                .body(authData)
+                .post(url)
+                .jsonPath();
     }
 }
