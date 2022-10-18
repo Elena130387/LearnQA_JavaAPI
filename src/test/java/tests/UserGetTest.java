@@ -63,10 +63,10 @@ public class UserGetTest extends BaseTestCase {
     public void testGetUserDetailsAuthAsAnotherUser(){
 
         //Create a new user
-        Map<String, String> userDataNotAuthUser = DataGenerator.getRegistrationData();
+        Map<String, String> newUserData = DataGenerator.getRegistrationData();
         JsonPath responseCreateUser = apiCoreRequests.makePostJsonRequest(
                 "https://playground.learnqa.ru/api/user",
-                userDataNotAuthUser);
+                newUserData);
 
         //Get user id
         String userId = responseCreateUser.getString("id");
