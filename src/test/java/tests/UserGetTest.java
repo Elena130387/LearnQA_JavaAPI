@@ -45,8 +45,8 @@ public class UserGetTest extends BaseTestCase {
                 "https://playground.learnqa.ru/api/user/login",
                 authData);
 
-        String cookie = this.getCookie(responseGetAuth, "auth_sid");
-        String header = this.getHeader(responseGetAuth, "x-csrf-token");
+        String cookie = responseGetAuth.getCookie("auth_sid");
+        String header = responseGetAuth.getHeader("x-csrf-token");
 
         Response responseUserData = apiCoreRequests.makeGetRequest(
                 "https://playground.learnqa.ru/api/user/2",
@@ -79,8 +79,8 @@ public class UserGetTest extends BaseTestCase {
                 "https://playground.learnqa.ru/api/user/login",
                 authData);
 
-        String cookie = this.getCookie(responseGetAuth, "auth_sid");
-        String header = this.getHeader(responseGetAuth, "x-csrf-token");
+        String cookie = responseGetAuth.getCookie("auth_sid");
+        String header = responseGetAuth.getHeader("x-csrf-token");
         int userIdOnAuth = this.getIntFromJson(responseGetAuth, "user_id");
 
         //Check that authorization is done

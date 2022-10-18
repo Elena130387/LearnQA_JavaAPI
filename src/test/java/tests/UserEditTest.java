@@ -46,8 +46,9 @@ public class UserEditTest extends BaseTestCase {
         Response responseGetAuth = apiCoreRequests.makePostRequest(
                 "https://playground.learnqa.ru/api/user/login",
                 authData);
-        String cookie = this.getCookie(responseGetAuth, "auth_sid");
-        String header = this.getHeader(responseGetAuth, "x-csrf-token");
+
+        String cookie = responseGetAuth.getCookie("auth_sid");
+        String header = responseGetAuth.getHeader("x-csrf-token");
 
         //EDIT
         String newName = "Change name";
@@ -107,8 +108,8 @@ public class UserEditTest extends BaseTestCase {
         Response responseGetAuth = apiCoreRequests.makePostRequest(
                 "https://playground.learnqa.ru/api/user/login",
                 authData);
-        String cookie = this.getCookie(responseGetAuth, "auth_sid");
-        String header = this.getHeader(responseGetAuth, "x-csrf-token");
+        String cookie = responseGetAuth.getCookie("auth_sid");
+        String header = responseGetAuth.getHeader("x-csrf-token");
 
         //EDIT
         String newName = "Change name";
@@ -143,8 +144,8 @@ public class UserEditTest extends BaseTestCase {
         Response responseGetAuth = apiCoreRequests.makePostRequest(
                 "https://playground.learnqa.ru/api/user/login",
                 authData);
-        String cookie = this.getCookie(responseGetAuth, "auth_sid");
-        String header = this.getHeader(responseGetAuth, "x-csrf-token");
+        String cookie = responseGetAuth.getCookie("auth_sid");
+        String header = responseGetAuth.getHeader("x-csrf-token");
 
         //EDIT
         String wrongEmail= "wrongemail.com";;
@@ -182,8 +183,8 @@ public class UserEditTest extends BaseTestCase {
         Response responseGetAuth = apiCoreRequests.makePostRequest(
                 "https://playground.learnqa.ru/api/user/login",
                 authData);
-        String cookie = this.getCookie(responseGetAuth, "auth_sid");
-        String header = this.getHeader(responseGetAuth, "x-csrf-token");
+        String cookie = responseGetAuth.getCookie("auth_sid");
+        String header = responseGetAuth.getHeader("x-csrf-token");
 
         //EDIT
         String newName = "u";
