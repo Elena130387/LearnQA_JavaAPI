@@ -3,7 +3,6 @@ package tests;
 import io.qameta.allure.Description;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
-import io.restassured.RestAssured;
 import io.restassured.path.json.JsonPath;
 import io.restassured.response.Response;
 import lib.ApiCoreRequests;
@@ -59,17 +58,46 @@ public class UserGetTest extends BaseTestCase {
     }
 
     @Test
-    @Description("This test checks that for authorization user we can get all his data")
-    @DisplayName("Test positive get data for authorization user")
+    @Description("This test checks that an authorized user cannot get another not authorized user's data")
+    @DisplayName("Test authorization user negative gets data for not authorization user")
     public void testGetUserDetailsAuthAsAnotherUser(){
-        Map<String, String> userData = DataGenerator.getRegistrationData();
 
-        JsonPath responseCreateAuth = apiCoreRequests.makePostJsonRequest(
+        //Create a new user
+        Map<String, String> userDataNotAuthUser = DataGenerator.getRegistrationData();
+        JsonPath responseCreateUser = apiCoreRequests.makePostJsonRequest(
                 "https://playground.learnqa.ru/api/user",
-                userData);
+                userDataNotAuthUser);
 
-        String userId = responseCreateAuth.getString("id");
+        //Get user id
+        String userId = responseCreateUser.getString("id");
 
+       //Authorization for another user
+        Map<String, String> authData = new HashMap<>();
+        authData.put("email", "vinkotov@example.com");
+        authData.put("password", "1234");
+        Response responseGetAuth = apiCoreRequests.makePostRequest(
+                "https://playground.learnqa.ru/api/user/login",
+                authData);
 
+        String cookie = this.getCookie(responseGetAuth, "auth_sid");
+        String header = this.getHeader(responseGetAuth, "x-csrf-token");
+        int userIdOnAuth = this.getIntFromJson(responseGetAuth, "user_id");
+
+        //Check that authorization is done
+        Response responseCheckAuth = apiCoreRequests.makeGetRequest(
+                "https://playground.learnqa.ru/api/user/auth",
+                header,
+                cookie);
+
+        Assertions.assertJsonByName(responseCheckAuth, "user_id", userIdOnAuth);
+
+        //Get data for the first not authorization user
+        Response responseUserData = apiCoreRequests.makeGetRequestWithoutTokenAndCookie(
+                "https://playground.learnqa.ru/api/user/" + userId);
+
+        //Сhecks
+        String[] unexpectedFieldNames = {"firstName", "lastName", "email"};
+        Assertions.assertJsonHasField(responseUserData, "username");
+        Assertions.assertJsonHasNotFields(responseUserData, unexpectedFieldNames);
     }
 }
