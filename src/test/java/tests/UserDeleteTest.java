@@ -1,9 +1,7 @@
 package tests;
 
 
-import io.qameta.allure.Description;
-import io.qameta.allure.Epic;
-import io.qameta.allure.Feature;
+import io.qameta.allure.*;
 import io.restassured.path.json.JsonPath;
 import io.restassured.response.Response;
 import lib.ApiCoreRequests;
@@ -23,6 +21,8 @@ public class UserDeleteTest {
     @Test
     @Description("This test checks that we can not delete user with id = 2")
     @DisplayName("Test negative delete authorization user with id = 2")
+    @Link("https://example.org")
+    @Link(name = "allure", type = "mylink")
     public void testNotDeleteUserWithIdEqualsTwo() {
         //LOGIN
         Map<String, String> authData = new HashMap<>();
@@ -56,6 +56,8 @@ public class UserDeleteTest {
     @Test
     @Description("This test checks that we can delete authorization user")
     @DisplayName("Test positive delete authorization user")
+    @Issue("123")
+    @TmsLink("test-2")
     public void testDeleteJustCreatedUser() {
         //GENERATE USER
         Map<String, String> userData = DataGenerator.getRegistrationData();
@@ -97,6 +99,8 @@ public class UserDeleteTest {
     @Test
     @Description("This test checks that we can not delete unauthorized user by first logging in as a different user")
     @DisplayName("Test negative delete unauthorization user by authorization user")
+    @TmsLink("test-1")
+    @Issue("125")
     public void testDeleteJustCreatedUserByAnotherUser() {
         //GENERATE USER
         Map<String, String> userData = DataGenerator.getRegistrationData();
