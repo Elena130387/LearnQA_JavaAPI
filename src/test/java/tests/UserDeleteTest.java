@@ -23,6 +23,7 @@ public class UserDeleteTest {
     @DisplayName("Test negative delete authorization user with id = 2")
     @Link("https://example.org")
     @Link(name = "allure", type = "mylink")
+    @Severity(SeverityLevel.CRITICAL)
     public void testNotDeleteUserWithIdEqualsTwo() {
         //LOGIN
         Map<String, String> authData = new HashMap<>();
@@ -58,6 +59,7 @@ public class UserDeleteTest {
     @DisplayName("Test positive delete authorization user")
     @Issue("123")
     @TmsLink("test-2")
+    @Severity(SeverityLevel.CRITICAL)
     public void testDeleteJustCreatedUser() {
         //GENERATE USER
         Map<String, String> userData = DataGenerator.getRegistrationData();
@@ -101,6 +103,7 @@ public class UserDeleteTest {
     @DisplayName("Test negative delete unauthorization user by authorization user")
     @TmsLink("test-1")
     @Issue("125")
+    @Severity(SeverityLevel.CRITICAL)
     public void testDeleteJustCreatedUserByAnotherUser() {
         //GENERATE USER
         Map<String, String> userData = DataGenerator.getRegistrationData();

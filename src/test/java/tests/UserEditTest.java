@@ -1,8 +1,6 @@
 package tests;
 
-import io.qameta.allure.Description;
-import io.qameta.allure.Epic;
-import io.qameta.allure.Feature;
+import io.qameta.allure.*;
 import io.restassured.path.json.JsonPath;
 import io.restassured.response.Response;
 import lib.ApiCoreRequests;
@@ -36,6 +34,11 @@ public class UserEditTest extends BaseTestCase {
     @Test
     @Description("This test checks that for authorization user we can change the firstName")
     @DisplayName("Test positive change firstName for authorization user")
+    @Severity(SeverityLevel.MINOR)
+    @Link("https://example.org")
+    @Link(name = "allure", type = "mylink")
+    @Issue("155")
+    @TmsLink("test-7")
     public void testEditJustCreatedUser() {
 
         //LOGIN
@@ -74,6 +77,11 @@ public class UserEditTest extends BaseTestCase {
     @Test
     @Description("This test checks that for not authorization user we can not change data")
     @DisplayName("Test negative change username for not authorization user")
+    @Severity(SeverityLevel.CRITICAL)
+    @Link("https://example.org")
+    @Link(name = "allure", type = "mylink")
+    @Issue("165")
+    @TmsLink("test-8")
     public void testEditJustCreatedUserWithoutAuth() {
 
         //EDIT
@@ -98,6 +106,11 @@ public class UserEditTest extends BaseTestCase {
     @Test
     @Description("This test checks that we cannot change the data for an unauthorized user by first logging in as a different user ")
     @DisplayName("Test negative change username by authorization user for not authorization user")
+    @Severity(SeverityLevel.CRITICAL)
+    @Link("https://example.org")
+    @Link(name = "allure", type = "mylink")
+    @Issue("175")
+    @TmsLink("test-9")
     public void testEditJustCreatedUserByAnotherUserAuth() {
 
         //LOGIN
@@ -134,6 +147,11 @@ public class UserEditTest extends BaseTestCase {
     @Test
     @Description("This test checks that we cannot change email to incorrect for authorization user")
     @DisplayName("Test negative change email by authorization user to incorrect value")
+    @Severity(SeverityLevel.CRITICAL)
+    @Link("https://example.org")
+    @Link(name = "allure", type = "mylink")
+    @Issue("185")
+    @TmsLink("test-10")
     public void testChangeUserEmailToIncorrect() {
 
         //LOGIN
@@ -173,6 +191,11 @@ public class UserEditTest extends BaseTestCase {
     @Test
     @Description("This test checks that we cannot change name for authorization user to the name with one symbol")
     @DisplayName("Test negative change name by authorization user to the name with one symbol")
+    @Severity(SeverityLevel.MINOR)
+    @Link("https://example.org")
+    @Link(name = "allure", type = "mylink")
+    @Issue("225")
+    @TmsLink("test-11")
     public void testChangeUserNameToNameWithOneSymbol() {
 
         //LOGIN

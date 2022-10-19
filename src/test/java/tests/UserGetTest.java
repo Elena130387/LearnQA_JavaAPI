@@ -1,8 +1,6 @@
 package tests;
 
-import io.qameta.allure.Description;
-import io.qameta.allure.Epic;
-import io.qameta.allure.Feature;
+import io.qameta.allure.*;
 import io.restassured.path.json.JsonPath;
 import io.restassured.response.Response;
 import lib.ApiCoreRequests;
@@ -23,6 +21,11 @@ public class UserGetTest extends BaseTestCase {
     @Test
     @Description("This test checks that for not authorization user we can get only username")
     @DisplayName("Test negative get data for not authorization user")
+    @Severity(SeverityLevel.MINOR)
+    @Link("https://example.org")
+    @Link(name = "allure", type = "mylink")
+    @Issue("235")
+    @TmsLink("test-14")
     public void testGetUserDataNotAuth (){
 
         Response responseUserData = apiCoreRequests.makeGetRequestWithoutTokenAndCookie(
@@ -36,6 +39,11 @@ public class UserGetTest extends BaseTestCase {
     @Test
     @Description("This test checks that for authorization user we can get all his data")
     @DisplayName("Test positive get data for authorization user")
+    @Severity(SeverityLevel.CRITICAL)
+    @Link("https://example.org")
+    @Link(name = "allure", type = "mylink")
+    @Issue("245")
+    @TmsLink("test-15")
     public void testGetUserDetailsAuthAsSameUser(){
         Map<String, String> authData = new HashMap<>();
         authData.put("email", "vinkotov@example.com");
@@ -60,6 +68,10 @@ public class UserGetTest extends BaseTestCase {
     @Test
     @Description("This test checks that an authorized user cannot get another not authorized user's data")
     @DisplayName("Test authorization user negative gets data for not authorization user")
+    @Severity(SeverityLevel.MINOR)
+    @Link("https://example.org")
+    @Link(name = "allure", type = "mylink")
+    @TmsLink("test-16")
     public void testGetUserDetailsAuthAsAnotherUser(){
 
         //Create a new user

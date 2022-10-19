@@ -1,8 +1,6 @@
 package tests;
 
-import io.qameta.allure.Description;
-import io.qameta.allure.Epic;
-import io.qameta.allure.Feature;
+import io.qameta.allure.*;
 import io.restassured.response.Response;
 import lib.ApiCoreRequests;
 import lib.Assertions;
@@ -24,6 +22,10 @@ public class UserRegisterTest extends BaseTestCase {
     @Test
     @Description("This test checks that it is not possible to create two users with the same email")
     @DisplayName("Test negative creation user with existing email")
+    @Severity(SeverityLevel.CRITICAL)
+    @Link("https://example.org")
+    @Link(name = "allure", type = "mylink")
+    @TmsLink("test-17")
     public void testCreateUserWithExistingEmail() {
         String email = "vinkotov@example.com";
         Map<String, String> userData = new HashMap<>();
@@ -41,6 +43,10 @@ public class UserRegisterTest extends BaseTestCase {
     @Test
     @Description("This test successfully create user")
     @DisplayName("Test positive user create")
+    @Severity(SeverityLevel.CRITICAL)
+    @Link("https://example.org")
+    @Link(name = "allure", type = "mylink")
+    @TmsLink("test-18")
     public void testCreateUserSuccessfully() {
         Map<String, String> userData = DataGenerator.getRegistrationData();
 
@@ -56,6 +62,10 @@ public class UserRegisterTest extends BaseTestCase {
     @Description("This test checks that it is not possible to create a user with an email address " +
             "that does not contain the symbol @")
     @DisplayName("Test negative creation user with email without @")
+    @Severity(SeverityLevel.CRITICAL)
+    @Link("https://example.org")
+    @Link(name = "allure", type = "mylink")
+    @TmsLink("test-19")
     public void testCreateUserWithIncorrectEmail() {
         String email = "wrongemail.com";
         Map<String, String> userData = new HashMap<>();
@@ -74,6 +84,10 @@ public class UserRegisterTest extends BaseTestCase {
     @Description("This test checks that it is not possible to create a user with a single " +
             "character name")
     @DisplayName("Test negative creation user with a single character name")
+    @Severity(SeverityLevel.MINOR)
+    @Link("https://example.org")
+    @Link(name = "allure", type = "mylink")
+    @TmsLink("test-20")
     public void testCreateUserWithOneSymbolName() {
         String username = "Ф";
         Map<String, String> userData = new HashMap<>();
@@ -92,6 +106,10 @@ public class UserRegisterTest extends BaseTestCase {
     @Description("This test checks that it is not possible to create a user with a name longer than " +
             "two hundred and fifty characters")
     @DisplayName("Test negative creation user with a name longer than 250 characters")
+    @Severity(SeverityLevel.MINOR)
+    @Link("https://example.org")
+    @Link(name = "allure", type = "mylink")
+    @TmsLink("test-21")
     public void testCreateUserWithVeryLongName() {
         Map<String, String> userData = new HashMap<>();
         String username = "testname";
@@ -118,6 +136,10 @@ public class UserRegisterTest extends BaseTestCase {
     @ValueSource(strings = {"username", "email", "password", "firstName", "lastName"})
     @Description("This test checks that it is not possible to create a user without one of parameters")
     @DisplayName("Test negative creation user without one of parameters")
+    @Severity(SeverityLevel.MINOR)
+    @Link("https://example.org")
+    @Link(name = "allure", type = "mylink")
+    @TmsLink("test-25")
     public void testCreateUserWithoutOneOfParameters(String condition) {
         Map<String, String> userData = new HashMap<>();
         userData = DataGenerator.getRegistrationData(userData);
@@ -142,6 +164,10 @@ public class UserRegisterTest extends BaseTestCase {
     @ValueSource(strings = {"username", "email", "password", "firstName", "lastName"})
     @Description("This test checks that it is not possible to create a user with one empty parameter")
     @DisplayName("Test negative creation user without one of parameters")
+    @Severity(SeverityLevel.MINOR)
+    @Link("https://example.org")
+    @Link(name = "allure", type = "mylink")
+    @TmsLink("test-32")
     public void testCreateUserWithOneEmptyParameter(String condition) {
         Map<String, String> userData = new HashMap<>();
         String emptyValue = "";

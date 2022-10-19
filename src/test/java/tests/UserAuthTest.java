@@ -39,6 +39,10 @@ public class UserAuthTest extends BaseTestCase {
     @Description("This test successfully authorize user by email and password")
     @DisplayName("Test positive auth user")
     @Severity(SeverityLevel.CRITICAL)
+    @Link("https://example.org")
+    @Link(name = "allure", type = "mylink")
+    @Issue("135")
+    @TmsLink("test-5")
     public void testAuthUser() {
 //        Map<String, String> cookies = responseGetAuth.getCookies();
 //        Headers responseHeaders = responseGetAuth.getHeaders();
@@ -81,6 +85,10 @@ public class UserAuthTest extends BaseTestCase {
     @Description("This test check authorization state w/o sending auth cookie or token")
     @DisplayName("Test negative auth user")
     @Severity(SeverityLevel.BLOCKER)
+    @Link("https://example.org")
+    @Link(name = "allure", type = "mylink")
+    @Issue("145")
+    @TmsLink("test-6")
     @ParameterizedTest
     @ValueSource(strings = {"cookie", "headers"})
     public void testNegativeAuthUser(String condition) {
